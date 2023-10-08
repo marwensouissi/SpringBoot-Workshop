@@ -1,16 +1,35 @@
 package com.example.souissimarwen4twin7.Entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import lombok.Getter;
-import lombok.Setter;
+import jakarta.persistence.*;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 
+import java.io.Serializable;
+import java.util.Set;
+
+@Entity
 @Getter
 @Setter
-@Entity
-public class Bloc {
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
+@FieldDefaults(level = AccessLevel.PRIVATE)
+public class Bloc implements Serializable {
+
     @Id
-    private long idBloc;
-    private String nomBloc;
-    private long capaciteBloc;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Setter(AccessLevel.NONE)
+    Long idBloc;
+
+    String nomBloc;
+    Long capaciteBloc;
+
+
+    @ManyToOne
+    @JoinColumn(name = "idFoyer")
+    Foyer foyer;
+
+    @OneToMany(mappedBy = "bloc")
+    Set<Chambre> chambres;
+
 }

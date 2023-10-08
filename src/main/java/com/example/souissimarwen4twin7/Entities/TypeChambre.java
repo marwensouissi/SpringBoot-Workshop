@@ -1,4 +1,4 @@
-package TP1_Jihed_Larayedh_4TWIN_7.entities;
+package com.example.souissimarwen4twin7.Entities;
 
 public enum TypeChambre {
     SIMPLE,

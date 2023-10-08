@@ -1,16 +1,36 @@
 package com.example.souissimarwen4twin7.Entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import lombok.Getter;
-import lombok.Setter;
+import jakarta.persistence.*;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 
+import java.io.Serializable;
+import java.util.Set;
+
+@Entity
 @Getter
 @Setter
-@Entity
-public class Chambre {
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
+@FieldDefaults(level = AccessLevel.PRIVATE)
+public class Chambre implements Serializable {
+
     @Id
-    private long idChambre;
-    private long numeroChambre;
-    private TypeChambre TypeC;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Setter(AccessLevel.NONE)
+    Long idChambre;
+
+    Long numeroChambre;
+
+    @Enumerated(EnumType.STRING)
+    TypeChambre typeC;
+
+
+    @ManyToOne
+    @JoinColumn(name = "idBloc")
+    Bloc bloc;
+
+    @OneToMany
+    Set<Reservation> reservations;
 }
